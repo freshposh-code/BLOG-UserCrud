@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home');
 });
-Route::get('/login', function () {
-    return view('posh');
-});
+// Route::get('/login', function () {
+//     return view('posh');
+// });
 
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/logout', [UserController::class, 'logout']);
