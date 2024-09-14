@@ -20,7 +20,7 @@
     <form action="/create-post" method="POST">
         @csrf
     <input style="padding: 6px 20px; outline: none; border: 1px solid black; margin: 7px;" type="text" name="title" placeholder="post title"> <br>
-    <textarea style="width: 500px; height: 300px; text-align: center;" name="body" placeholder="body content...."></textarea> <br>
+    <textarea style="width: 300px; height: 100px; text-align: center;" name="body" placeholder="body content...."></textarea> <br>
     <button style="margin-top: 15px; padding: 10px; background: transparent; font-weight: bold; font-size: medium; cursor: pointer;">Save Post</button> 
     </form>
 </div>
@@ -29,8 +29,16 @@
     <h2 style="margin: 10px;">All Posts</h2>
     @foreach($posts as $post)
     <div style="background-color: rgb(33, 87, 89); color: aliceblue; width: 50%; margin: 10px; padding: 1rem;">
-        <h3>{{$post['title']}}</h3>
+        <h3>{{$post['title']}} by {{$post->user->name}}</h3>
         {{$post['body']}}
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+        <p><a style=" padding: 5px; text-decoration: none; color: rgb(0, 0, 0); background: white;" href="/edit-post/{{$post->id}}">Edit</a></p>
+        <form action="/delete-post/{{$post->id}}" method="POST">
+        @csrf
+    @method('DELETE')
+    <button>Delete</button>
+    </form>
+</div>
     </div>
     @endforeach
 </div>
@@ -62,6 +70,7 @@
             @endif
 
             <button style="margin-top: 15px; padding: 10px; background: transparent; font-weight: bold; font-size: medium; cursor: pointer;">Register</button>
+            {{-- <p> Already have an account?<a href="/login">Login</a></p> --}}
         </form>
     </div>
 
